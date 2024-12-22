@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  bot:
+    build: .
+    restart: always
+    container_name: ozone_notes
+    depends_on:
+      - db
+    environment:
+      - TOKEN=${TOKEN}
+      - DB_URL=${DB_URL}
+    links:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: ozone_notes_db
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
